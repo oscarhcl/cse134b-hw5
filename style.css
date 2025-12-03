@@ -1212,3 +1212,88 @@ body {
     }
 }
 
+/* Contact Form Validation Styles */
+.required {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.char-counter {
+    font-size: 0.875rem;
+    color: var(--text-secondary, var(--text-secondary-fallback));
+    margin-top: var(--spacing-xs, var(--spacing-xs-fallback));
+    text-align: right;
+}
+
+.char-counter.warning {
+    color: #ff8800;
+    font-weight: bold;
+}
+
+.char-counter.danger {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.flash-error {
+    animation: flash 0.5s ease-in-out;
+}
+
+@keyframes flash {
+    0%, 100% {
+        border-color: var(--border-color, var(--border-color-fallback));
+    }
+    50% {
+        border-color: #dc3545;
+        box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
+    }
+}
+
+output {
+    display: block;
+    padding: var(--spacing-sm, var(--spacing-sm-fallback));
+    border-radius: var(--border-radius-sm, var(--border-radius-sm-fallback));
+    margin-top: var(--spacing-sm, var(--spacing-sm-fallback));
+    font-size: 0.875rem;
+}
+
+output:empty {
+    display: none;
+}
+
+output[name="errors"]:not(:empty) {
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    color: #842029;
+}
+
+output[name="info"]:not(:empty) {
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+    color: #0c5460;
+}
+
+[data-theme="dark"] output[name="errors"]:not(:empty) {
+    background-color: #5a1f1f;
+    border-color: #8b3a3a;
+    color: #ffb3b3;
+}
+
+[data-theme="dark"] output[name="info"]:not(:empty) {
+    background-color: #1f4a5a;
+    border-color: #3a6b8b;
+    color: #b3e0ff;
+}
+
+input:user-invalid,
+textarea:user-invalid {
+    border-color: #dc3545;
+    background-color: color-mix(in srgb, var(--bg-primary) 95%, #dc3545 5%);
+}
+
+input:user-valid,
+textarea:user-valid {
+    border-color: #28a745;
+    background-color: color-mix(in srgb, var(--bg-primary) 95%, #28a745 5%);
+}
+

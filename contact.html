@@ -7,7 +7,7 @@
     <link rel="icon" type="image/x-icon" href="icon.ico">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>    
+<body>
     <nav>
         <input type="checkbox" id="menu-toggle-contact" class="menu-toggle">
         <label for="menu-toggle-contact" class="menu-toggle">
@@ -43,17 +43,28 @@
                 </li>
             </ol>
         </section>
-        <form>
+        <form action="https://httpbin.org/post" method="POST" id="contact-form" novalidate>
             <fieldset>
                 <legend>Send me a message</legend>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name">
-                
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email">
-                
-                <label for="message">Your Message:</label>
-                <textarea id="message" name="message" rows="2"></textarea>
+
+                <label for="name">
+                    Name <span class="required">*</span>
+                </label>
+                <input type="text" id="name" name="name" required minlength="2" maxlength="100" pattern="[A-Za-z\s\-'.]+" title="Please enter a valid name (letters, spaces, hyphens, apostrophes, and periods only)">
+
+                <label for="email">
+                    Email <span class="required">*</span>
+                </label>
+                <input type="email" id="email" name="email" required maxlength="254" title="Please enter a valid email address">
+
+                <label for="message">
+                    Your Message <span class="required">*</span>
+                </label>
+                <textarea id="message" name="message" rows="4" required minlength="10" maxlength="1000"></textarea>
+                <div class="char-counter" id="char-counter">0 / 1000 characters</div>
+
+                <output name="errors" id="errors"></output>
+                <output name="info" id="info"></output>
 
                 <button type="submit">Send Message</button>
             </fieldset>
@@ -62,6 +73,7 @@
     <footer>
         <p>Copyright 2025 Oscar Hung Portfolio</p>
     </footer>
+    <script src="contact-form.js"></script>
     <script src="theme.js"></script>
 </body>
 </html>
