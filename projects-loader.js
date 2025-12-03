@@ -74,7 +74,7 @@ function loadLocalProjects() {
 }
 
 async function loadRemoteProjects() {
-    const remoteUrl = 'https://my-json-server.typicode.com/oscarhcl/cse134-hw5/projects';
+    const remoteUrl = 'https://my-json-server.typicode.com/oscarhcl/cse134b-hw5/projects';
 
     try {
         const response = await fetch(remoteUrl);
