@@ -20,6 +20,17 @@ const localProjectsData = [
         date: "2024",
         link: "https://github.com",
         linkText: "View Source Code"
+    },
+    {
+        id: 3,
+        title: "Immersion Coffee Website Revamped",
+        image: "immersion1.png",
+        imageAlt: "Immersion Coffee website homepage showing modern responsive design",
+        description: "Redesigned the frontend for a San Diego coffee shop's website using React. Improved page load speed by 40% and visual consistency across 10+ components through Git and Figma-driven collaboration.",
+        technologies: "React, HTML5, CSS3, TypeScript, Node.js, Figma",
+        date: "2023",
+        link: "https://github.com",
+        linkText: "View Website"
     }
 ];
 

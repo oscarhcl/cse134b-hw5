@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Projects - Oscar Hung</title>
+    <link rel="icon" type="image/x-icon" href="icon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <input type="checkbox" id="menu-toggle-crud" class="menu-toggle">
+        <label for="menu-toggle-crud" class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="experience.html">Experience</a></li>
+            <li><a href="about-me.html">About Me</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h1>Manage Projects</h1>
+    </header>
+    <main class="crud-main">
+        <section class="crud-form-section">
+            <h2 id="form-title">Create New Project</h2>
+            <form id="project-form">
+                <input type="hidden" id="project-id" value="">
+
+                <label for="project-title">Project Title *</label>
+                <input type="text" id="project-title" name="title" required placeholder="Enter project title">
+
+                <label for="project-image">Image Filename *</label>
+                <input type="text" id="project-image" name="image" required placeholder="e.g., project.png">
+
+                <label for="project-image-alt">Image Alt Text *</label>
+                <input type="text" id="project-image-alt" name="imageAlt" required placeholder="Describe the image">
+
+                <label for="project-description">Description *</label>
+                <textarea id="project-description" name="description" required rows="4" placeholder="Enter project description"></textarea>
+
+                <label for="project-technologies">Technologies</label>
+                <input type="text" id="project-technologies" name="technologies" placeholder="e.g., React, Node.js, MongoDB">
+
+                <label for="project-date">Date</label>
+                <input type="text" id="project-date" name="date" placeholder="e.g., 2024">
+
+                <label for="project-link">Project Link</label>
+                <input type="url" id="project-link" name="link" placeholder="https://github.com/...">
+
+                <label for="project-link-text">Link Button Text</label>
+                <input type="text" id="project-link-text" name="linkText" placeholder="e.g., View Project">
+
+                <div class="form-buttons">
+                    <button type="submit" id="submit-btn" class="btn-primary">Create Project</button>
+                    <button type="button" id="cancel-btn" class="btn-secondary" style="display: none;">Cancel</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="projects-list-section">
+            <h2>Existing Projects (localStorage)</h2>
+            <div id="projects-list" class="projects-list"></div>
+        </section>
+    </main>
+    <footer>
+        <p>Copyright 2025 Oscar Hung Portfolio</p>
+    </footer>
+    <script src="crud.js"></script>
+    <script src="theme.js"></script>
+</body>
+</html>
