@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form - No JavaScript</title>
+    <style>
+        :root {
+            --bg-primary: #f5f5f5;
+            --bg-secondary: #ffffff;
+            --text-primary: #333;
+            --text-secondary: #555;
+            --text-muted: #666;
+            --border-color: #e0e0e0;
+            --border-color-focus: #007bff;
+            --input-bg: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --error-bg: #f8d7da;
+            --error-border: #f5c2c7;
+            --error-text: #842029;
+            --info-bg: #d1ecf1;
+            --info-border: #bee5eb;
+            --info-text: #0c5460;
+            --button-bg: #007bff;
+            --button-hover: #0056b3;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-muted: #999;
+            --border-color: #404040;
+            --border-color-focus: #4a9eff;
+            --input-bg: #2d2d2d;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --error-bg: #5a1f1f;
+            --error-border: #8b3a3a;
+            --error-text: #ffb3b3;
+            --info-bg: #1f4a5a;
+            --info-border: #3a6b8b;
+            --info-text: #b3e0ff;
+            --button-bg: #4a9eff;
+            --button-hover: #3a8eef;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 18px;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 10000;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--button-bg);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-toggle:active {
+            transform: translateY(0);
+        }
+
+        h1 {
+            color: var(--text-primary);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        form {
+            background: var(--bg-secondary);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            position: relative;
+            transition: background-color 0.3s ease;
+        }
+
+        fieldset {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: grid;
+            gap: 20px;
+        }
+
+        legend {
+            font-weight: 600;
+            font-size: 1.1em;
+            color: var(--text-primary);
+            padding: 0 12px;
+        }
+
+        label {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            background-color: var(--input-bg);
+            color: var(--text-primary);
+            border-radius: 4px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s, background-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--border-color-focus);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        input[type="text"]:user-invalid,
+        input[type="email"]:user-invalid,
+        input[type="tel"]:user-invalid,
+        textarea:user-invalid {
+            border-color: #dc3545;
+            background-color: #fff5f5;
+        }
+
+        input[type="text"]:user-invalid:focus,
+        input[type="email"]:user-invalid:focus,
+        input[type="tel"]:user-invalid:focus,
+        textarea:user-invalid:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+        }
+
+        input[type="text"]:user-valid,
+        input[type="email"]:user-valid,
+        input[type="tel"]:user-valid,
+        textarea:user-valid {
+            border-color: #28a745;
+            background-color: #f0fff4;
+        }
+
+        input[type="text"]:user-valid:focus,
+        input[type="email"]:user-valid:focus,
+        input[type="tel"]:user-valid:focus,
+        textarea:user-valid:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+        }
+
+        input:optional,
+        textarea:optional {
+            background-image: none;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .required {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        output {
+            display: block;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        output[name="errors"]:not(:empty) {
+            background-color: var(--error-bg);
+            border: 1px solid var(--error-border);
+            color: var(--error-text);
+        }
+
+        output[name="info"]:not(:empty) {
+            background-color: var(--info-bg);
+            border: 1px solid var(--info-border);
+            color: var(--info-text);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px 24px;
+            background-color: var(--button-bg);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--button-hover);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(1px);
+        }
+
+        @media (max-width: 640px) {
+            form {
+                padding: 24px;
+            }
+
+            fieldset {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Contact Form</h1>
+
+    <form action="https://httpbin.org/post" method="POST">
+        <fieldset>
+            <legend>Contact Information</legend>
+
+            <label for="name">
+                Name <span class="required">*</span>
+            </label>
+            <input type="text" id="name" name="name" required minlength="2" maxlength="100" pattern="[A-Za-z\s\-'.]+" title="Please enter a valid name (letters, spaces, hyphens, apostrophes, and periods only)">
+
+            <label for="email">
+                Email <span class="required">*</span>
+            </label>
+            <input type="email" id="email" name="email" required maxlength="254" title="Please enter a valid email address">
+
+            <label for="phone">
+                Phone
+            </label>
+            <input type="tel" id="phone" name="phone" pattern="[\d\s\-\+\(\).]+" maxlength="20" title="Please enter a valid phone number">
+        </fieldset>
+
+        <fieldset>
+            <legend>Message Details</legend>
+
+            <label for="subject">
+                Subject
+            </label>
+            <input type="text" id="subject" name="subject" minlength="2" maxlength="200" pattern="[A-Za-z0-9\s\-'.,!?]+" title="Please enter a valid subject">
+
+            <label for="comments">
+                Comments <span class="required">*</span>
+            </label>
+            <textarea id="comments" name="comments" required minlength="10" maxlength="1000"></textarea>
+        </fieldset>
+
+        <input type="hidden" name="possible_bot" value="true">
+
+        <output name="errors" id="errors"></output>
+        <output name="info" id="info"></output>
+
+        <button type="submit">Submit</button>
+    </form>
+    <script src="theme.js"></script>
+</body>
+</html>

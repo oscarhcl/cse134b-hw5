@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oscar Hung - Personal Portfolio</title>
+    <link rel="icon" type="image/x-icon" href="icon.ico">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @view-transition {
+            navigation: auto;
+        }
+
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+            animation-duration: 0.5s;
+        }
+
+        ::view-transition-old(root) {
+            animation-name: fade-out;
+        }
+
+        ::view-transition-new(root) {
+            animation-name: fade-in;
+        }
+
+        @keyframes fade-out {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        <label for="menu-toggle" class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="experience.html">Experience</a></li>
+            <li><a href="about-me.html">About Me</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h1>Oscar Hung Personal Portfolio</h1>
+        
+        <picture>
+            <source media="(max-width: 480px)" srcset="profile-picture-300w.jpeg" type="image/jpeg">
+            <source media="(max-width: 768px)" srcset="profile-picture-600w.jpeg" type="image/jpeg">
+            <img src="profile-picture-600w.jpeg" 
+                 alt="Professional portrait of Oscar Hung, software engineer and full stack developer"
+                 width="200" 
+                 height="200"
+                 loading="lazy">
+        </picture>
+    </header>
+    <main>
+        <section>
+            <h2>My Purpose</h2>
+            <p>I am an <strong>aspiring software engineer</strong> who is developing my skills and knowledge in the field of <strong>traditional full stack development</strong>, 
+                at the same time, learning about <strong>fundamental AI theories and their applications</strong>. I aim to be a competent enginner who could build
+                and implement <strong>efficient and scalable AI systems</strong> in the <em>near future</em>.
+                <span> Feel free to go through my portfolio and learn more about me!</span>
+            </p>
+        </section>
+    </main>
+    <footer>
+        <p>Copyright 2025 Oscar Hung Portfolio</p>
+    </footer>
+    <script src="theme.js"></script>
+    <script>
+        if ('navigation' in window && 'currentEntry' in window.navigation) {
+            window.navigation.addEventListener('navigate', (event) => {
+                const toUrl = new URL(event.destination.url);
+
+                if (location.origin !== toUrl.origin || !event.canIntercept) return;
+
+                event.intercept({
+                    handler: async () => {
+                        const response = await fetch(toUrl.pathname);
+                        const html = await response.text();
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+
+                        document.title = doc.title;
+                        document.body.innerHTML = doc.body.innerHTML;
+
+                        const script = document.createElement('script');
+                        script.src = 'theme.js';
+                        document.body.appendChild(script);
+                    }
+                });
+            });
+        } else {
+            document.querySelectorAll('a[href^="about-me.html"]').forEach(link => {
+                link.addEventListener('click', async (e) => {
+                    e.preventDefault();
+
+                    if (!document.startViewTransition) {
+                        window.location = link.href;
+                        return;
+                    }
+
+                    document.startViewTransition(async () => {
+                        const response = await fetch(link.href);
+                        const html = await response.text();
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+
+                        document.title = doc.title;
+                        document.body.innerHTML = doc.body.innerHTML;
+                        window.history.pushState({}, '', link.href);
+
+                        const script = document.createElement('script');
+                        script.src = 'theme.js';
+                        document.body.appendChild(script);
+                    });
+                });
+            });
+        }
+    </script>
+</body>
+</html>

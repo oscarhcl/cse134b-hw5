@@ -1,0 +1,25 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "Leaseflow AI Platform",
+      "image": "pickup1.png",
+      "imageAlt": "Leaseflow AI rental search interface",
+      "description": "Full-stack rental search platform with LLM-powered chat assistant and 7 REST APIs."
+    },
+    {
+      "id": 2,
+      "title": "UCSD Basketball Queue App",
+      "image": "pickup2.png",
+      "imageAlt": "Basketball queue app interface",
+      "description": "React Native iOS app for virtual queuing with Apple ID auth and real-time sync."
+    },
+    {
+      "id": 3,
+      "title": "Immersion Coffee Website",
+      "image": "immersion1.png",
+      "imageAlt": "Coffee shop website homepage",
+      "description": "Redesigned frontend for San Diego coffee shop with 40% faster page loads."
+    }
+  ]
+}
